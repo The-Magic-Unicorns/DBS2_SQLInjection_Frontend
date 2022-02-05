@@ -1,5 +1,7 @@
 <?php
 
+namespace DBS2;
+
 require_once(__DIR__ . '/../configuration.php');
 
 class Database
@@ -93,4 +95,6 @@ class Database
         }
         return $dbcon;
     }
+
+
 }

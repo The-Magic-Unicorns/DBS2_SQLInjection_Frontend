@@ -1,7 +1,9 @@
 <?php
 
 require_once(__DIR__ . '/configuration.php');
-require_once(__DIR__ . '/php_include/Database.php');
+require_once(__DIR__ . '/vendor/autoload.php');
+
+use DBS2\Database;
 
 ?>
 <!DOCTYPE html>
@@ -46,9 +48,9 @@ require_once(__DIR__ . '/php_include/Database.php');
             // check if form was submitted
             if($_SERVER['REQUEST_METHOD'] == 'POST')
             {
-                $dbType = intval($_POST['dbtype']);
+                $dbType = intval($_POST['dbType']);
                 $search = $_POST['search'];
-                $limitResult = $_POST['limit_result'];
+                $limitResult = $_POST['limitResult'];
 
                 $dbcon = new Database($dbType);
             }
