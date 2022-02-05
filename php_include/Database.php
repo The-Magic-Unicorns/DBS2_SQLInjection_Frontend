@@ -9,26 +9,63 @@ class Database
     /** @var int */
     public const POSTGRESQL = 2;
 
+    /** @var int type of selected database */
+    private $type = 0;
+
+    /** @var mixed db connection resource */
+    private $connection = null;
+
     /**
-     * @param int $db_type
+     * @param int $type
      */
-    public function connect(int $db_type)
+    public function __construct(int $type = 0)
     {
-        switch($db_type)
+        $this->type = $type;
+        if($this->type != 0)
+        {
+            $this->connect();
+        }
+    }
+
+    /**
+     * @param int $type
+     * @return $this
+     */
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    /** connect to database */
+    public function connect()
+    {
+        switch($this->type)
         {
             case self::$MARIADB:
-                return $this->connect_mariadb();
+                $this->connection = $this->connectMariadb();
                 break;
             case self::$POSTGRESQL:
-                return $this->connect_postgresql();
+                $this->connection = $this->connectPostgresql();
                 break;
             default:
-                return null;
+                $this->connection = null;
                 break;
         }
     }
 
-    private function connect_mariadb()
+    /**
+     * @return mysqli|null
+     */
+    private function connectMariadb(): mysqli|null
     {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $dbcon = new mysqli($CONFIG['db']['mariadb']['host'], $CONFIG['db']['mariadb']['user'], $CONFIG['db']['mariadb']['password'], $CONFIG['db']['mariadb']['dbname']);
@@ -40,7 +77,10 @@ class Database
         return $dbcon;
     }
 
-    private function connect_postgresql()
+    /**
+     * @return resource
+     */
+    private function connectPostgresql()
     {
         $dbcon = pg_connect('host=' . $CONFIG['db']['psql']['host'] . ' '
             . 'dbname=' . $CONFIG['db']['psql']['dbname'] . ' '

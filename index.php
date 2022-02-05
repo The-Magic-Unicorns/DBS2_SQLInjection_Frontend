@@ -19,11 +19,11 @@ require_once(__DIR__ . '/php_include/Database.php');
     <div class="wrapper">
         <form action="index.php" method="post">
             <div class="form-group">
-                <label for="dbtype">Chose a database type:</label>
-                <select name="dbtype" class="form-control">
+                <label for="dbType">Chose a database type:</label>
+                <select name="dbType" class="form-control">
                     <option value="0">--Please select a datase--</option>
-                    <option value="<?php Database::$MARIADB ?>">MariaDB</option>
-                    <option value="<?php Database::$POSTGRESQL ?>">Postgresql</option>
+                    <option value="<?php Database::MARIADB ?>">MariaDB</option>
+                    <option value="<?php Database::POSTGRESQL ?>">Postgresql</option>
                 </select>
             </div>
             <div class="form-group">
@@ -31,12 +31,12 @@ require_once(__DIR__ . '/php_include/Database.php');
                 <input name="search" class="form-control" />
             </div>
             <div class="form-group">
-                <label for="limit_result">Limit result</label>
-                <input type="number" name="limit_result" class="form-control" />
+                <label for="limitResult">Limit result</label>
+                <input type="number" name="limitResult" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-default" />
-                <input type="reset" class="btn btn-danger" />
+                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
             </div>
         </form>
     </div>
@@ -46,13 +46,11 @@ require_once(__DIR__ . '/php_include/Database.php');
             // check if form was submitted
             if($_SERVER['REQUEST_METHOD'] == 'POST')
             {
-                $dbtype = intval($_POST['dbtype']);
+                $dbType = intval($_POST['dbtype']);
                 $search = $_POST['search'];
-                $limit_result = $_POST['limit_result'];
+                $limitResult = $_POST['limit_result'];
 
-                $dbcon = new Database;
-                $dbcon->connect($dbtype);
-
+                $dbcon = new Database($dbType);
             }
         ?>
     </div>
