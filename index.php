@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/configuration.php');
 require_once(__DIR__ . '/vendor/autoload.php');
 
-use DBS2\Database;
+use DBS2\Database\Database;
 
 ?>
 <!DOCTYPE html>
