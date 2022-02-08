@@ -22,7 +22,11 @@ class ComposerStaticInit3489c53041b386bb948b2309aa0a9f10
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'DBS2\\Database' => __DIR__ . '/../..' . '/src/Database.php',
+        'DBS2\\Configuration\\Configuration' => __DIR__ . '/../..' . '/src/Configuration/Configuration.php',
+        'DBS2\\Database\\AbstractDatabase' => __DIR__ . '/../..' . '/src/Database/AbstractDatabase.php',
+        'DBS2\\Database\\Database' => __DIR__ . '/../..' . '/src/Database/Database.php',
+        'DBS2\\Database\\MariaDB' => __DIR__ . '/../..' . '/src/Database/MariaDB.php',
+        'DBS2\\Debug\\Logger' => __DIR__ . '/../..' . '/src/Debug/Logger.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

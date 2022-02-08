@@ -11,8 +11,8 @@ class Database extends AbstractDatabase
 
     /** @var int type of selected database */
     private $type = 0;
-    /** @var MariaDB database ressource */
-    private $dbRes = null;
+    /** @var MariaDB|Postgresql database ressource */
+    private $dbResource = null;
     /** @var mixed */
     private $lastQueryResult = null;
 
@@ -54,14 +54,14 @@ class Database extends AbstractDatabase
     {
         switch($this->type)
         {
-            case self::$MARIADB:
-                $this->connection = new MariaDB();
+            case self::MARIADB:
+                $this->dbResource = new MariaDB();
                 break;
-            case self::$POSTGRESQL:
-                $this->connection = new Postgresql();
+            case self::POSTGRESQL:
+                $this->dbResource = new Postgresql();
                 break;
             default:
-                $this->connection = null;
+                $this->dbResource = null;
                 break;
         }
         return $this;
@@ -72,7 +72,16 @@ class Database extends AbstractDatabase
      */
     public function query(string $queryStr)
     {
-        return $this->dbRes->query($queryStr);
+        if($this->dbResource == null)
+        {
+            throw new \Exception('No connection to database');
+        }
+        else
+        {
+            $queryResult = $this->dbResource->query($queryStr);
+            $this->lastQueryResult = $queryResult;
+            return $queryResult;
+        }
     }
 
     /**
@@ -89,6 +98,6 @@ class Database extends AbstractDatabase
         {
             return array();
         }
-        return $this->dbRes->fetchArray($queryResult);
+        return $this->dbResource->fetchArray($queryResult);
     }
 }

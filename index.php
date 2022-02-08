@@ -24,8 +24,8 @@ use DBS2\Database\Database;
                 <label for="dbType">Chose a database type:</label>
                 <select name="dbType" class="form-control">
                     <option value="0">--Please select a datase--</option>
-                    <option value="<?php Database::MARIADB ?>">MariaDB</option>
-                    <option value="<?php Database::POSTGRESQL ?>">Postgresql</option>
+                    <option value="<?php echo(Database::MARIADB) ?>">MariaDB</option>
+                    <option value="<?php echo(Database::POSTGRESQL) ?>">Postgresql</option>
                 </select>
             </div>
             <div class="form-group">
@@ -53,6 +53,11 @@ use DBS2\Database\Database;
                 $limitResult = $_POST['limitResult'];
 
                 $dbcon = new Database($dbType);
+
+                $queryStr = 'SELECT * FROM ' . 'apl.' . 'mitigates';
+                $dbcon->query($queryStr);
+                $resultArray = $dbcon->fetchArray();
+                print_r($resultArray);
             }
         ?>
     </div>

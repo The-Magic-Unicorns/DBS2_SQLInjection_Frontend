@@ -3,14 +3,14 @@
 $CONFIG = array(
     'db' => array(
         'psql' => array(
-            'host' => 'localhost',
+            'host' => '127.0.0.1',
             'dbname' => 'postgres',
             'user' => 'postgres',
             'password' => 'mysecretpassword',
             'schema' => 'apl'
         ),
         'mariadb' => array(
-            'host' => 'localhost',
+            'host' => '127.0.0.1',
             'dbname' => 'datenbanken01',
             'user' => 'root',
             'password' => 'mysecretpassword',
