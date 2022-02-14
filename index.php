@@ -52,11 +52,12 @@ use DBS2\Database\Database;
                 $search = $_POST['search'];
                 $limitResult = $_POST['limitResult'];
 
-                $dbcon = new Database($dbType);
+                $dbCon = new Database($dbType);
+                $dbCon->select(array('*'), 'mitigates');
 
-                $queryStr = 'SELECT * FROM ' . 'apl.' . 'mitigates';
-                $dbcon->query($queryStr);
-                $resultArray = $dbcon->fetchArray();
+                //$queryStr = 'SELECT * FROM ' . 'apl.' . 'mitigates';
+                $dbCon->query();
+                $resultArray = $dbCon->fetchArray();
                 print_r($resultArray);
             }
         ?>

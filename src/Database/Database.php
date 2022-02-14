@@ -67,10 +67,7 @@ class Database extends AbstractDatabase
         return $this;
     }
 
-    /**
-     * @param string $queryStr
-     */
-    public function query(string $queryStr)
+    public function query()
     {
         if($this->dbResource == null)
         {
@@ -78,7 +75,7 @@ class Database extends AbstractDatabase
         }
         else
         {
-            $queryResult = $this->dbResource->query($queryStr);
+            $queryResult = $this->dbResource->query();
             $this->lastQueryResult = $queryResult;
             return $queryResult;
         }
@@ -99,5 +96,59 @@ class Database extends AbstractDatabase
             return array();
         }
         return $this->dbResource->fetchArray($queryResult);
+    }
+
+    /**
+     * @return string
+     */
+    public function getQueryStr(): string
+    {
+        return $this->dbResource->getQueryStr();
+    }
+
+    /**
+     * @param array $fields
+     * @param string $table
+     * @return AbstractDatabase
+     */
+    public function select(array $fields, string $table): AbstractDatabase
+    {
+        return $this->dbResource->select($fields, $table);
+    }
+
+    /**
+     * @param string $where
+     * @return AbstractDatabase
+     */
+    public function where(string $where): AbstractDatabase
+    {
+        return $this->dbResource->where($where);
+    }
+
+    /**
+     * @param string $limit
+     * @return AbstractDatabase
+     */
+    public function limit(string $limit): AbstractDatabase
+    {
+        return $this->dbResource->limit($limit);
+    }
+
+    /**
+     * @param string $expression
+     * @return AbstractDatabase
+     */
+    public function and(string $expression): AbstractDatabase
+    {
+        return $this->dbResource->and($expression);
+    }
+
+    /**
+     * @param string $expression
+     * @return AbstractDatabase
+     */
+    public function or(string $expression): AbstractDatabase
+    {
+        return $this->or($expression);
     }
 }
