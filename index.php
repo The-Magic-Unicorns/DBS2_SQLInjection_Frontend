@@ -59,7 +59,25 @@ if(!isset($_SESSION['dbType']))
             $logger->log('New search: "' . $dbCon->getQueryStr() . '" from client ip ' . $_SERVER['REMOTE_ADDR'] . "\n");
             $dbCon->query();
             $resultArray = $dbCon->fetchArray();
-            print_r($resultArray);
+
+            echo('<table class="table table-striped">'
+                . '<tr>'
+                    . '<th></th>'
+                    . '<th>Industrytype</th>'
+                    . '<th>Description</th>'
+                . '</tr>');
+            $i = 1;
+            foreach($resultArray as $resultRow)
+            {
+                echo("<br />");
+                echo('<tr>'
+                        . '<td>' . $i . '</td>'
+                        . '<td>' . $resultRow['industrytype'] . '</td>'
+                        . '<td>' . $resultRow['description'] .'</td>'
+                    . '</tr>');
+                $i += 1;
+            }
+            echo('</table>');
         }
     ?>
 </div>
