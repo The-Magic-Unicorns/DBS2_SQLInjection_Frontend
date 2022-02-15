@@ -3,6 +3,7 @@
 namespace DBS2\Database;
 
 use DBS2\Configuration\Configuration;
+use DBS2\Debug\Logger;
 
 class MariaDB extends AbstractDatabase
 {
@@ -35,7 +36,7 @@ class MariaDB extends AbstractDatabase
         $dbConfig = $config->getGlobalConfig()['db'][$_SESSION['dbType']];
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $this->dbResource = new \mysqli($dbConfig['host'], $dbConfig['user'], $dbConfig['password'], $dbConfig['dbname']);
-        $this->isConnected = false;
+        $this->isConnected = true;
         if($this->dbResource->connect_errno)
         {
             throw new \RuntimeException('mysqli connection error: ' . $this->dbResource->connect_error);
@@ -66,7 +67,17 @@ class MariaDB extends AbstractDatabase
         {
             return null;
         }
-        return $queryResult->fetch_array(MYSQLI_ASSOC);
+        $resultArr = array();
+        while(true)
+        {
+            $row = $queryResult->fetch_array(MYSQLI_ASSOC);
+            if($row == null)
+            {
+                break;
+            }
+            $resultArr[] = $row;
+        }
+        return $resultArr;
     }
 
     /**
@@ -98,7 +109,7 @@ class MariaDB extends AbstractDatabase
             // remove last ', '
             $this->queryStr = substr($this->queryStr,0, -2);
         }
-        $this->queryStr = ' FROM' . $table;
+        $this->queryStr .= ' FROM ' . $table;
         return $this;
     }
 
