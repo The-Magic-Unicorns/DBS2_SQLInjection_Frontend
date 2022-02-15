@@ -87,7 +87,7 @@ class MariaDB extends AbstractDatabase
         $this->queryStr = 'SELECT ';
         if(count($fields) < 1)
         {
-            $this->queryStr .= '* ';
+            $this->queryStr .= '*';
         }
         else
         {
@@ -98,7 +98,7 @@ class MariaDB extends AbstractDatabase
             // remove last ', '
             $this->queryStr = substr($this->queryStr,0, -2);
         }
-        $this->queryStr = 'FROM' . $table;
+        $this->queryStr = ' FROM' . $table;
         return $this;
     }
 

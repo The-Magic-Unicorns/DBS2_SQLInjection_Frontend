@@ -81,7 +81,7 @@ class Postgresql extends AbstractDatabase
         $this->queryStr = 'SELECT ';
         if(count($fields) < 1)
         {
-            $this->queryStr .= '* ';
+            $this->queryStr .= '*';
         }
         else
         {
@@ -92,7 +92,7 @@ class Postgresql extends AbstractDatabase
             // remove last ', '
             $this->queryStr = substr($this->queryStr, 0, -2);
         }
-        $this->queryStr .= 'FROM ' . $dbConfig['schema'] . '.' . $table;
+        $this->queryStr .= ' FROM ' . $dbConfig['schema'] . '.' . $table;
         return $this;
     }
 
