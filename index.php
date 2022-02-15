@@ -1,33 +1,18 @@
 <?php
 
 require_once(__DIR__ . '/configuration.php');
-require_once(__DIR__ . '/vendor/autoload.php');
 
 use DBS2\Database\Database;
 
+session_start();
+
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>SQL Injection</title>
-    <link rel="stylesheet" href="css/bootstrap-4.0.0/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/main.css" />
-</head>
-<body>
-    <header class="jumbotron">
-        <h1>Learning SQL Injection</h1>
-    </header>
-    <div class="wrapper">
+
+<?php require_once(__DIR__ . '/frontend_php/header.inc.php'); ?>
+<div class="wrapper">
+
+    <div class="search-form">
         <form action="index.php" method="post">
-            <div class="form-group">
-                <label for="dbType">Chose a database type:</label>
-                <select name="dbType" class="form-control">
-                    <option value="0">--Please select a datase--</option>
-                    <option value="<?php echo(Database::MARIADB) ?>">MariaDB</option>
-                    <option value="<?php echo(Database::POSTGRESQL) ?>">Postgresql</option>
-                </select>
-            </div>
             <div class="form-group">
                 <label for="search">Search</label>
                 <input name="search" class="form-control" />
@@ -42,26 +27,23 @@ use DBS2\Database\Database;
             </div>
         </form>
     </div>
+</div>
 
-    <div class="result">
-        <?php
-            // check if form was submitted
-            if($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                $dbType = intval($_POST['dbType']);
-                $search = $_POST['search'];
-                $limitResult = $_POST['limitResult'];
+<div class="result">
+    <?php
+        // check if form was submitted
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $search = $_POST['search'];
+            $limitResult = $_POST['limitResult'];
 
-                $dbCon = new Database($dbType);
-                $dbCon->select(array('*'), 'mitigates');
+            $dbCon = new Database($CONFIG['db'][$_SESSION['dbType']]['type']);
+            $dbCon->select(array('*'), 'mitigates');
 
-                //$queryStr = 'SELECT * FROM ' . 'apl.' . 'mitigates';
-                $dbCon->query();
-                $resultArray = $dbCon->fetchArray();
-                print_r($resultArray);
-            }
-        ?>
-    </div>
-
-</body>
-</html>
+            $dbCon->query();
+            $resultArray = $dbCon->fetchArray();
+            print_r($resultArray);
+        }
+    ?>
+</div>
+<?php require_once(__DIR__ . '/frontend_php/footer.inc.php'); ?>

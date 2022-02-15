@@ -1,8 +1,12 @@
 <?php
 
+require_once(__DIR__ . '/vendor/autoload.php');
+
 $CONFIG = array(
     'db' => array(
         'psql' => array(
+            'name' => 'PostgreSQL',
+            'type' => DBS2\Database\Database::POSTGRESQL,
             'host' => '127.0.0.1',
             'dbname' => 'postgres',
             'user' => 'postgres',
@@ -10,6 +14,16 @@ $CONFIG = array(
             'schema' => 'apl'
         ),
         'mariadb' => array(
+            'name' => 'MariaDB',
+            'type' => DBS2\Database\Database::MARIADB,
+            'host' => '127.0.0.1',
+            'dbname' => 'datenbanken01',
+            'user' => 'root',
+            'password' => 'mysecretpassword',
+        ),
+        'mariadb_azure' => array(
+            'name' => 'MariaDB Azure Cloud',
+            'type' => DBS2\Database\Database::MARIADB,
             'host' => '127.0.0.1',
             'dbname' => 'datenbanken01',
             'user' => 'root',

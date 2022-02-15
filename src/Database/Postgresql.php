@@ -77,7 +77,7 @@ class Postgresql extends AbstractDatabase
     public function select(array $fields, string $table): self
     {
         $config = new Configuration();
-        $dbConfig = $config->getGlobalConfig()['db']['psql'];
+        $dbConfig = $config->getGlobalConfig()['db'][$_SESSION['dbType']];
         $this->queryStr = 'SELECT ';
         if(count($fields) < 1)
         {

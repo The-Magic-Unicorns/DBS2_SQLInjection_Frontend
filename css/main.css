@@ -1,6 +1,14 @@
 .jumbotron
 {
     text-align: center;
+    position: relative;
+}
+
+.jumbotron a
+{
+    position: absolute;
+    bottom: 20px;
+    right: 40px;
 }
 
 .wrapper

@@ -32,7 +32,7 @@ class MariaDB extends AbstractDatabase
     public function connect(): self
     {
         $config = new Configuration();
-        $dbConfig = $config->getGlobalConfig()['db']['mariadb'];
+        $dbConfig = $config->getGlobalConfig()['db'][$_SESSION['dbType']];
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         $this->dbResource = new \mysqli($dbConfig['host'], $dbConfig['user'], $dbConfig['password'], $dbConfig['dbname']);
         $this->isConnected = false;
