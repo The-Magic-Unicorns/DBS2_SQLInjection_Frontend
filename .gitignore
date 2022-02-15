@@ -1,4 +1,4 @@
 .idea/
 test/
-var/
+var/log/debug.log
 .DS_Store/
