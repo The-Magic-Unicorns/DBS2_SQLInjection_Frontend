@@ -58,7 +58,13 @@ class Postgresql extends AbstractDatabase
 
     public function fetchArray($queryResult = null)
     {
-        return pg_fetch_array($queryResult, null, PGSQL_ASSOC);
+        $resultArr = array();
+        $resultSize = pg_num_rows($queryResult);
+        for($i = 0; $i < $resultSize; $i++)
+        {
+            $resultArr[] = pg_fetch_array($queryResult, $i, PGSQL_ASSOC);
+        }
+        return $resultArr;
     }
 
     /**
