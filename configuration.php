@@ -24,9 +24,9 @@ $CONFIG = array(
         'mariadb_azure' => array(
             'name' => 'MariaDB Azure Cloud',
             'type' => DBS2\Database\Database::MARIADB,
-            'host' => '127.0.0.1',
+            'host' => 'wings-mariadb-forensic.mariadb.database.azure.com',
             'dbname' => 'datenbanken01',
-            'user' => 'root',
+            'user' => 'azureuser@wings-mariadb-forensic',
             'password' => 'mysecretpassword',
         )
     )

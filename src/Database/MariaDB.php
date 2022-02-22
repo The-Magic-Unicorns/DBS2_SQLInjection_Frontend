@@ -50,7 +50,7 @@ class MariaDB extends AbstractDatabase
     {
         if($this->isConnected && strlen($this->queryStr) > 0)
         {
-            return $this->dbResource->query($this->queryStr);
+            return $this->dbResource->multi_query($this->queryStr);
         }
         return 0;
     }
@@ -63,20 +63,27 @@ class MariaDB extends AbstractDatabase
      */
     public function fetchArray($queryResult = null)
     {
-        if($queryResult == null)
+        if($queryResult == null || $queryResult == false)
         {
             return null;
         }
         $resultArr = array();
-        while(true)
+        do
         {
-            $row = $queryResult->fetch_array(MYSQLI_ASSOC);
-            if($row == null)
+            if($result = $this->dbResource->store_result())
             {
-                break;
+                while(true)
+                {
+                    $row = $result->fetch_array(MYSQLI_ASSOC);
+                    if($row == null)
+                    {
+                        break;
+                    }
+                    $resultArr[] = $row;
+                }
             }
-            $resultArr[] = $row;
-        }
+        } while($this->dbResource->next_result());
+
         return $resultArr;
     }
 

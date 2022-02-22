@@ -23,7 +23,9 @@ class Logger
      */
     public function log(string $message): self
     {
-        fwrite($this->fiha, $message . "\n");
+        $today = new \DAteTime('now');
+        $today = $today->format('d.m.Y H:i:s');
+        fwrite($this->fiha, $today . '; ' . $message . "\n");
         return $this;
     }
 }
